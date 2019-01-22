@@ -1,0 +1,7 @@
+C:\Users\Kumail\source\repos\IntroSort\IntroSort\bin\Debug\IntroSort.exe.config
+C:\Users\Kumail\source\repos\IntroSort\IntroSort\bin\Debug\IntroSort.exe
+C:\Users\Kumail\source\repos\IntroSort\IntroSort\bin\Debug\IntroSort.pdb
+C:\Users\Kumail\source\repos\IntroSort\IntroSort\obj\Debug\IntroSort.csprojResolveAssemblyReference.cache
+C:\Users\Kumail\source\repos\IntroSort\IntroSort\obj\Debug\IntroSort.csproj.CoreCompileInputs.cache
+C:\Users\Kumail\source\repos\IntroSort\IntroSort\obj\Debug\IntroSort.exe
+C:\Users\Kumail\source\repos\IntroSort\IntroSort\obj\Debug\IntroSort.pdb
