@@ -35,7 +35,7 @@ namespace IntroSort
             int[] a = new int[n];
             Random rand = new Random();
             for (int i = 0; i < n; i++)
-                a[i] = rand.Next(-1, n); // generate random number from -1 to value of n
+                a[i] = rand.Next(-1, n); 
             return a;
         }
 
@@ -44,18 +44,23 @@ namespace IntroSort
         {
             int size = arr.Length;
             int n = arr.Length - 1;
+            int logOfSize = (int) (2 * Math.Log(arr.Length, 2));
 
-            // if size of an array is less than 16
             if (size < 16)
             {
                 Console.WriteLine("Insertion Sort");
-                InsertionSort(arr); // sort using insertion sort
-            } else if (size > (2 * Math.Log(arr.Length,2))) { // if size is less than 2 * log2(size)
-                Console.WriteLine("HEAP SORT : {0}", (2 * Math.Log(arr.Length, 2)));
-                HeapSort(arr, size); // sort using heap sort 
-            } else if (size >  16 && size < (2 * Math.Log(arr.Length, 2))) { // if size is greater than 16 but less than the 2*log2(arr.lenght)
+                InsertionSort(arr); 
+
+            } else if (size > logOfSize) {
+
+                Console.WriteLine("Heap Sort");
+                HeapSort(arr, size);
+
+            } else  {
+
                 Console.WriteLine("Quick Sort");
-                QuickSort(arr, 0, n); // sort using quick sort 
+                QuickSort(arr, 0, n);
+
             }
         }
 
@@ -65,7 +70,7 @@ namespace IntroSort
         {
             if (low < high)
             {
-                // return pindex 
+                
                 int pIndex = Partition(array, low, high);
                 QuickSort(array, low, pIndex - 1); // quick sort the left of the pivot 
                 QuickSort(array, pIndex + 1, high); // quick sort the right of the pivot
@@ -75,19 +80,19 @@ namespace IntroSort
         public static int Partition(int[] arr, int low, int high)
         {
             int pivot = arr[high]; // set pivot as last value of the array
-            int pIndex = low - 1; // pindex to -1
+            int pIndex = low - 1; 
             int temp; 
 
             for (int i = low; i <= high - 1; i++){
-                if (arr[i] <= pivot){ // if current value is equal or less than pivot selected 
+                if (arr[i] <= pivot)
+                { 
                     pIndex++;
-                    temp = arr[pIndex]; // swap 
+                    temp = arr[pIndex]; 
                     arr[pIndex] = arr[i];
                     arr[i] = temp;
                 }
             }
-
-            // swap again 
+            
             temp = arr[pIndex + 1];
             arr[pIndex + 1] = arr[high];
             arr[high] = temp;
@@ -104,15 +109,13 @@ namespace IntroSort
                 j = i; // current index 
                 while (j > 0) // until last element not reached
                 {
-                    // if last element is larger than next element
                     if (arr[j - 1] > arr[j])
                     {
-                        // swap
-                       temp = arr[j - 1];
+                        temp = arr[j - 1];
                         arr[j - 1] = arr[j];
                         arr[j] = temp;
                     }
-                    j--; // decrement value of j
+                    j--;
                 }
             }
         }
@@ -128,11 +131,11 @@ namespace IntroSort
             int temp;
             for (int i = n - 1; i >= 0; i--)
             {
-                // swap max value to first index
+                // swap max value to last index
                 temp = arr[0];
                 arr[0] = arr[i];
                 arr[i] = temp;
-                // again find max heap from the binary heap
+                // again find max heap from the sub tree 
                 MaxHeap(arr, i, 0);
             }
 
@@ -152,10 +155,10 @@ namespace IntroSort
             if (right < size && arr[right] > arr[largest])
                 largest = right; // set largest to right
 
-            // if largest is not on the first node
+            // if largest is not the root 
             if (largest != index)
             {
-                // swap
+                
                 int temp = arr[index];
                 arr[index] = arr[largest];
                 arr[largest] = temp;
