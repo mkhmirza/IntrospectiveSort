@@ -8,3 +8,6 @@ Group Members
 1) Abdullah Rizwan 17B-007-CS(A)
 2) Hina Kiran Abbas 17B-031-CS(A)
 3) M.Kumail Habib Mirza 17B-021-CS(A)
+
+Inputs: An Random Array of any size
+Output: Array is sorted using insertion, heap or quick sort depending on the size of the array.
