@@ -4,21 +4,25 @@ namespace IntroSort
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
 
-            int[] a = RandomNumber(18);
-            Console.WriteLine("Before Sorting");
-            PrintArray(a);
+            int[] arr = RandomNumber(17);
+            int start = 0;
+            int end = arr.Length - 1;
+
+            Console.WriteLine("Array Before Sorting");
+            PrintArray(arr);
 
             Console.WriteLine();
-
             Console.WriteLine();
-            Console.WriteLine("After Sorting..");
-            IntroSort(a);
+
+            Console.WriteLine("Array After Sorting..");
             
-            PrintArray(a);
-       
+            IntroSort(arr, start, end);
+
+            PrintArray(arr);
             Console.ReadKey();
         }
 
@@ -30,53 +34,75 @@ namespace IntroSort
             }
         }
 
+        /// <summary>
+        /// Generates and return an array with Random Values 
+        /// </summary>
         public static int[] RandomNumber(int n)
         {
             int[] a = new int[n];
             Random rand = new Random();
             for (int i = 0; i < n; i++)
-                a[i] = rand.Next(-1, n); 
+                a[i] = rand.Next(-10, n * 2); 
             return a;
         }
 
+        /// <summary>
+        /// Sort an array using IntroSort and depthLimit
+        /// </summary>
 
-        public static void IntroSort(int[] arr)
+        public static void IntroSort(int[] arr, int begin, int end)
+        {
+            int depthLimit = (int)(2 * Math.Log(arr.Length, 2)); 
+            Instrospective(arr, begin, end, depthLimit);
+        }
+
+        /// <summary>
+        /// Utility Function for introSort
+        /// </summary>
+
+        public static void Instrospective(int[] arr,int begin, int end,int depthLimit)
         {
             int size = arr.Length;
-            int n = arr.Length - 1;
-            int logOfSize = (int) (2 * Math.Log(arr.Length, 2));
-
-            if (size < 16)
+            // size is less than 16 elements
+            if(size < 16)
             {
-                Console.WriteLine("Insertion Sort");
-                InsertionSort(arr); 
-
-            } else if (size > logOfSize) {
-
-                Console.WriteLine("Heap Sort");
-                HeapSort(arr, size);
-
-            } else  {
-
-                Console.WriteLine("Quick Sort");
-                QuickSort(arr, 0, n);
-
+                InsertionSort(arr);
+                return;
             }
-        }
 
-
-
-        public static void QuickSort(int[] array, int low, int high)
-        {
-            if (low < high)
+            // if depth limit is zero
+            if(depthLimit == 0)
             {
                 
-                int pIndex = Partition(array, low, high);
-                QuickSort(array, low, pIndex - 1); // quick sort the left of the pivot 
-                QuickSort(array, pIndex + 1, high); // quick sort the right of the pivot
+                HeapSort(arr, size);
+                return;
             }
+
+            // choose pivot and run Quick Sort
+            int partitionValue = Partition(arr, 0, arr.Length - 1);
+            Instrospective(arr, begin, partitionValue - 1, depthLimit - 1);
+            Instrospective(arr, partitionValue + 1, end, depthLimit - 1);
+
         }
 
+        /// <summary>
+        /// Sorts an array using Quick Sort  
+        /// </summary>
+        
+        public void QuickSort(int[] arr,int low,int high)
+        {
+            if(low < high)
+            {
+                int pIndex = Partition(arr, low, high);
+                QuickSort(arr, low, pIndex - 1);
+                QuickSort(arr, pIndex + 1, high);
+            }
+        }
+        
+        /// <summary>
+        /// Calculates the partition value from the array 
+        /// </summary>
+        
         public static int Partition(int[] arr, int low, int high)
         {
             int pivot = arr[high]; // set pivot as last value of the array
@@ -99,6 +125,9 @@ namespace IntroSort
             return pIndex + 1;
         }
 
+        /// <summary>
+        /// Sorts an array by comparing previous value with the next value 
+        /// </summary>
 
         public static void InsertionSort(int[] arr)
         {
@@ -119,6 +148,13 @@ namespace IntroSort
                 }
             }
         }
+
+
+
+
+        /// <summary>
+        /// Sorts an array using binary heap
+        /// </summary>
 
         public static void HeapSort(int[] arr, int n)
         {
@@ -141,6 +177,10 @@ namespace IntroSort
 
         }
 
+        /// <summary>
+        ///  Builds the binary heap and calculates the maximum node 
+        /// </summary>
+        
         public static void MaxHeap(int[] arr, int size, int index)
         {
             int largest = index; 
